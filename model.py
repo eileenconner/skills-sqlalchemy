@@ -15,13 +15,36 @@ db = SQLAlchemy()
 class Model(db.Model):
 
     __tablename__ = "models"
-    pass
+
+    model_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    brand_name = db.Column(db.String(50), db.ForeignKey("brands.name"), nullable=True)
+    name = db.Column(db.String(50), nullable=False)
+
+    brand = db.relationship("Brand", backref=db.backref("models", order_by=model_id))
+
+    def __repr__(self):
+        """Display human-readable information when printed."""
+
+        return "<Model model_id=%s brand_name=%s name=%s>" % (self.model_id,
+                                                              self.brand_name,
+                                                              self.name)
 
 
 class Brand(db.Model):
 
     __tablename__ = "brands"
-    pass
+
+    brand_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    founded = db.Column(db.Integer, nullable=True)
+    headquarters = db.Column(db.String(50), nullable=True)
+    discontinued = db.Column(db.Integer, nullable=True)
+
+    def __repr__(self):
+        """Display human-readable information when printed."""
+
+        return "<Brand brand_id=%s name=%s>" % (self.brand_id, self.name)
 
 # End Part 1
 ##############################################################################
