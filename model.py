@@ -16,26 +16,30 @@ class Model(db.Model):
 
     __tablename__ = "models"
 
-    model_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     year = db.Column(db.Integer, nullable=False)
     brand_name = db.Column(db.String(50), db.ForeignKey("brands.name"), nullable=True)
     name = db.Column(db.String(50), nullable=False)
 
-    brand = db.relationship("Brand", backref=db.backref("models", order_by=model_id))
+    brand = db.relationship("Brand", backref=db.backref("models", order_by=id))
 
     def __repr__(self):
         """Display human-readable information when printed."""
 
-        return "<Model model_id=%s brand_name=%s name=%s>" % (self.model_id,
-                                                              self.brand_name,
-                                                              self.name)
+        return "<Model id=%s brand_name=%s name=%s>" % (self.id,
+                                                        self.brand_name,
+                                                        self.name)
+
+    # 1. Why is "id" blue? I don't think it's a reserved word, and the code appears to work.
+    # 2. Is there a way to specify length of integers? Dr. Google hasn't provided a good answer.
+    # Will look back in handouts.
 
 
 class Brand(db.Model):
 
     __tablename__ = "brands"
 
-    brand_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(50), nullable=False)
     founded = db.Column(db.Integer, nullable=True)
     headquarters = db.Column(db.String(50), nullable=True)
@@ -44,7 +48,7 @@ class Brand(db.Model):
     def __repr__(self):
         """Display human-readable information when printed."""
 
-        return "<Brand brand_id=%s name=%s>" % (self.brand_id, self.name)
+        return "<Brand id=%s name=%s>" % (self.id, self.name)
 
 # End Part 1
 ##############################################################################
