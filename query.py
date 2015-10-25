@@ -95,11 +95,20 @@ def get_brands_summary():
 
 # Part 2.5: Advanced and Optional
 def search_brands_by_name(mystr):
-    pass
+    """Returns list of objects that are brands whose name contains or == input string"""
+
+    object_list = db.session.query(Brand.name).filter((Brand.name.like("%mystr%")) | (Brand.name == mystr)).all()
+
+    print object_list
+
+    # there is definitely something wrong here
 
 
 def get_models_between(start_year, end_year):
-    pass
+    """returns a list of objects that are models with years that fall between the start year and end year"""
+    models_between = db.session.query(Model.name).filter(Model.year > start_year, Model.year < end_year).all()
+
+    print models_between
 
 # -------------------------------------------------------------------
 
@@ -131,4 +140,3 @@ def get_models_between(start_year, end_year):
 # establishing keywords by means of which we can query the related tables.
 # Then it would almost act as a structured join between the two. It would allow
 # multiple joins and more complex queries.
-
