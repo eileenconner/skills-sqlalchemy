@@ -90,7 +90,6 @@ def get_brands_summary():
     # in sqlite I did this: SELECT brand_name, name FROM Models GROUP BY name;
     # Am I misreading the question?
 
-
 # -------------------------------------------------------------------
 
 
@@ -108,5 +107,28 @@ def get_models_between(start_year, end_year):
 
 # 1. What is the returned value and datatype of ``Brand.query.filter_by(name='Ford')``?
 
+# (is this what you mean by "returned value"?
+# It's what I get when I print the assigned variable)
+
+# returned value:
+
+# SELECT brands.id AS brands_id, brands.name AS brands_name, brands.founded
+# AS brands_founded, brands.headquarters AS brands_headquarters, brands.discontinued AS brands_discontinued
+# FROM brands
+# WHERE brands.name = :name_1
+
+# type: <class 'flask_sqlalchemy.BaseQuery'>
+
+
 # 2. In your own words, what is an association table, and what *type* of relationship
 # does an association table manage?
+
+# I think an association table is a small table created specifically to provide a
+# means by which two other tables can join.
+# It would contain the standard primary key/foreign key relationship with each of
+# those two other tables.
+# In Python it definitely contains the relationship/backref pairs we've been writing,
+# establishing keywords by means of which we can query the related tables.
+# Then it would almost act as a structured join between the two. It would allow
+# multiple joins and more complex queries.
+
